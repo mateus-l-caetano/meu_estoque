@@ -111,8 +111,7 @@ QList<Item> DatabaseManager::getItens()
             unsigned int categoria = getItensQuery.value("categoria").toUInt();
             long double preco = getItensQuery.value("preco").toLongLong();
             unsigned int quantidade = getItensQuery.value("quantidade").toUInt();
-            currentItem = Item(nome, Categoria(categoria), preco, quantidade);
-            currentItem.setId(id);
+            currentItem = Item(id, nome, Categoria(categoria), preco, quantidade);
 
             itens.push_back(currentItem);
         }

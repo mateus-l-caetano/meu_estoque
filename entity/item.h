@@ -17,8 +17,8 @@ public:
     Item &operator=(const Item &) = default;
 
     Item(QString nome, Categoria categoria, long double preco, int quantidade);
+    Item(QString id, QString nome, Categoria categoria, long double preco, int quantidade);
     QString getId();
-    void setId(QString id);
     QString getNome();
     int getCategoria();
     long double getPreco();

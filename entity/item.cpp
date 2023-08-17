@@ -9,14 +9,18 @@ Item::Item(QString nome, Categoria categoria, long double preco, int quantidade)
     this->quantidade = quantidade;
 }
 
+Item::Item(QString id, QString nome, Categoria categoria, long double preco, int quantidade)
+{
+    this->id = id;
+    this->nome = nome;
+    this->categoria = categoria;
+    this->preco = preco;
+    this->quantidade = quantidade;
+}
+
 QString Item::getId()
 {
     return this->id;
-}
-
-void Item::setId(QString id)
-{
-    this->id = id;
 }
 
 QString Item::getNome()
