@@ -8,12 +8,12 @@
 #include "../../entity/item.h"
 #include "../database/database.h"
 
-class EstoqueDataSource : public QObject
+class EstoqueRepository : public QObject
 {
     Q_OBJECT
 
 public:
-    EstoqueDataSource(DatabaseManager *estoque);
+    EstoqueRepository(DatabaseManager *estoque);
 
 signals:
     void successfullyRegisteredItem();

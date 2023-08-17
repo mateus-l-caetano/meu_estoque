@@ -33,11 +33,20 @@ private:
 
     QMutex estoqueMutex;
 
+    const QString CREATE_ESTOQUE_TABLE_QUERY = "CREATE TABLE estoque("
+                                               "id TEXT NOT NULL PRIMARY KEY,"
+                                               "nome TEXT NOT NULL,"
+                                               "categoria INTEGER,"
+                                               "preco REAL,"
+                                               "quantidade INTEGER NOT NULL);";
+
     const QString REGISTER_ITEM_QUERY = "INSERT INTO estoque("
                                         "id, nome, categoria, preco, quantidade) "
                                         "VALUES(:id, :nome, :categoria, :preco, :quantidade);";
 
     const QString GET_ITENS_QUERY = "SELECT * FROM estoque;";
+
+    const QString GET_SIZE_QUERY = "SELECT COUNT() FROM estoque;";
 
 };
 

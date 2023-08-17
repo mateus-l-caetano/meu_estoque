@@ -13,10 +13,10 @@ int main(int argc, char *argv[])
     DatabaseManager *database = DatabaseManager::getInstance();
     database->start();
 
-    EstoqueDataSource *estoqueDataSource = new EstoqueDataSource(database);
+    EstoqueRepository *estoqueRepository = new EstoqueRepository(database);
 
-    std::unique_ptr<CadastroDeItemUseCase> cadastroDeItemUseCase(new CadastroDeItemUseCase(estoqueDataSource));
-    std::unique_ptr<GetEstoqueUseCase> getEstoqueUseCase(new GetEstoqueUseCase(estoqueDataSource));
+    std::unique_ptr<CadastroDeItemUseCase> cadastroDeItemUseCase(new CadastroDeItemUseCase(estoqueRepository));
+    std::unique_ptr<GetEstoqueUseCase> getEstoqueUseCase(new GetEstoqueUseCase(estoqueRepository));
 
     QObject::connect(cadastroDeItemUseCase.get(), &CadastroDeItemUseCase::success, [](){
         qDebug() << "cadastro realizado com sucesso";

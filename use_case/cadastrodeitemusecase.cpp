@@ -1,8 +1,8 @@
 #include "cadastrodeitemusecase.h"
 
-CadastroDeItemUseCase::CadastroDeItemUseCase(EstoqueDataSource *estoqueDataSource) : QObject()
+CadastroDeItemUseCase::CadastroDeItemUseCase(EstoqueRepository *estoqueRepository) : QObject()
 {
-    this->estoqueDataSource = estoqueDataSource;
+    this->estoqueRepository = estoqueRepository;
 }
 
 CadastroDeItemUseCase::~CadastroDeItemUseCase()
@@ -12,7 +12,7 @@ CadastroDeItemUseCase::~CadastroDeItemUseCase()
 void CadastroDeItemUseCase::execute(Item item)
 {
     qDebug() << "cadastra";
-    connect(this->estoqueDataSource, &EstoqueDataSource::successfullyRegisteredItem, this, &CadastroDeItemUseCase::success);
-    this->estoqueDataSource->cadastrarItem(item);
+    connect(this->estoqueRepository, &EstoqueRepository::successfullyRegisteredItem, this, &CadastroDeItemUseCase::success);
+    this->estoqueRepository->cadastrarItem(item);
     return;
 }

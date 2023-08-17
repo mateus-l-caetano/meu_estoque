@@ -1,13 +1,13 @@
 #include "estoquerepository.h"
 
-EstoqueDataSource::EstoqueDataSource(DatabaseManager *estoque) : QObject()
+EstoqueRepository::EstoqueRepository(DatabaseManager *estoque) : QObject()
 {
     this->estoque = estoque;
 
 //    this->carregarItensPadrao();
 }
 
-void EstoqueDataSource::carregarItensPadrao()
+void EstoqueRepository::carregarItensPadrao()
 {
     int categoriaRange = 1;
     for(int i = 0; i < 10; i++) {
@@ -45,7 +45,7 @@ void EstoqueDataSource::carregarItensPadrao()
     return;
 }
 
-void EstoqueDataSource::cadastrarItem(Item novoItem)
+void EstoqueRepository::cadastrarItem(Item novoItem)
 {
     qDebug() << "cadastro data source";
 
@@ -60,17 +60,17 @@ void EstoqueDataSource::cadastrarItem(Item novoItem)
     }
 }
 
-void EstoqueDataSource::adicionarItem(int indiceDoItemASerAdicionado, unsigned int quantidadeDeItensASeremAdicionados)
+void EstoqueRepository::adicionarItem(int indiceDoItemASerAdicionado, unsigned int quantidadeDeItensASeremAdicionados)
 {
 
 }
 
-void EstoqueDataSource::removerItem(QString idDoitemASerRemovido, unsigned int quantidadeDeItensASeremRemovidos)
+void EstoqueRepository::removerItem(QString idDoitemASerRemovido, unsigned int quantidadeDeItensASeremRemovidos)
 {
 
 }
 
-void EstoqueDataSource::getItens()
+void EstoqueRepository::getItens()
 {
     qDebug() << "getItens data source";
 

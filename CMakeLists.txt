@@ -15,6 +15,7 @@ qt_add_executable(appmeu_estoque
     use_case/listagemdeitensusecase.h use_case/listagemdeitensusecase.cpp
     data/repository/estoquerepository.h data/repository/estoquerepository.cpp
     data/database/database.h data/database/database.cpp
+    adapter/itemadapter.h adapter/itemadapter.cpp
 )
 
 qt_add_qml_module(appmeu_estoque

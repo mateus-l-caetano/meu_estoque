@@ -11,7 +11,7 @@ class CadastroDeItemUseCase : public QObject
     Q_OBJECT
 
 public:
-    CadastroDeItemUseCase(EstoqueDataSource *estoqueDataSource);
+    CadastroDeItemUseCase(EstoqueRepository *estoqueRepository);
     ~CadastroDeItemUseCase();
     void execute(Item item);
 
@@ -19,7 +19,7 @@ signals:
     void success();
 
 private:
-    EstoqueDataSource *estoqueDataSource = nullptr;
+    EstoqueRepository *estoqueRepository = nullptr;
 };
 
 #endif // CADASTRODEITEMUSECASE_H

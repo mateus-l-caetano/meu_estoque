@@ -12,7 +12,7 @@ class GetEstoqueUseCase : public QObject
     Q_OBJECT
 
 public:
-    GetEstoqueUseCase(EstoqueDataSource *estoqueDataSource);
+    GetEstoqueUseCase(EstoqueRepository *estoqueRepository);
     ~GetEstoqueUseCase();
     void execute();
 
@@ -20,7 +20,7 @@ signals:
     void success(QList<Item> itens);
 
 private:
-    EstoqueDataSource *estoqueDataSource = nullptr;
+    EstoqueRepository *estoqueRepository = nullptr;
 
 private slots:
     void printEstoque(QList<Item> itens);

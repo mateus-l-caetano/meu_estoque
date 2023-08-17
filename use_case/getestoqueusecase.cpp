@@ -1,8 +1,8 @@
 #include "getestoqueusecase.h"
 
-GetEstoqueUseCase::GetEstoqueUseCase(EstoqueDataSource *estoqueDataSource)
+GetEstoqueUseCase::GetEstoqueUseCase(EstoqueRepository *estoqueRepository)
 {
-    this->estoqueDataSource = estoqueDataSource;
+    this->estoqueRepository = estoqueRepository;
 }
 
 GetEstoqueUseCase::~GetEstoqueUseCase()
@@ -12,9 +12,9 @@ GetEstoqueUseCase::~GetEstoqueUseCase()
 void GetEstoqueUseCase::execute()
 {
     qDebug() << "get estoque";
-    connect(this->estoqueDataSource, &EstoqueDataSource::getItensSuccess, this, &GetEstoqueUseCase::success);
-    connect(this->estoqueDataSource, &EstoqueDataSource::getItensSuccess, this, &GetEstoqueUseCase::printEstoque);
-    this->estoqueDataSource->getItens();
+    connect(this->estoqueRepository, &EstoqueRepository::getItensSuccess, this, &GetEstoqueUseCase::success);
+    connect(this->estoqueRepository, &EstoqueRepository::getItensSuccess, this, &GetEstoqueUseCase::printEstoque);
+    this->estoqueRepository->getItens();
 }
 
 void GetEstoqueUseCase::printEstoque(QList<Item> itens)

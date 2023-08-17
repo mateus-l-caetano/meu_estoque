@@ -10,31 +10,33 @@ DatabaseManager::DatabaseManager() : QThread()
 void DatabaseManager::openDatabase()
 {
     qDebug() << "open database";
+
     QDir databasePath;
     QString path = databasePath.currentPath()+"/meu_estoque.db";
     qDebug() << "path do banco de dados" << path;
+
     this->m_database = QSqlDatabase::addDatabase("QSQLITE");
     this->m_database.setDatabaseName(path);
+
     if(!this->m_database.open()) {
-        throw std::runtime_error("não foi possível acessar o banco de dados");
+        std::string databaseErrorMessage = this->m_database.lastError().text().toStdString();
+        std::string errorMessage = "não foi possível acessar o banco de dados: " + databaseErrorMessage;
+
+        throw std::runtime_error(errorMessage);
     } else if(!this->m_database.tables().contains("estoque")) {
         qDebug() << "banco aberto com sucesso";
         this->createEstoqueTable();
     } else {
-        qDebug() << "o banco e a tabela já estavam criados e estão prontos para uso";
+        qDebug() << "banco pronto para uso";
     }
 }
 
 void DatabaseManager::createEstoqueTable()
 {
     qDebug() << "create database";
+
     QSqlQuery createEstoqueTableQuery(m_database);
-    createEstoqueTableQuery.prepare("CREATE TABLE estoque("
-                                    "id TEXT NOT NULL PRIMARY KEY,"
-                                    "nome TEXT NOT NULL,"
-                                    "categoria INTEGER,"
-                                    "preco REAL,"
-                                    "quantidade INTEGER NOT NULL);");
+    createEstoqueTableQuery.prepare(CREATE_ESTOQUE_TABLE_QUERY);
 
     if(createEstoqueTableQuery.exec()) {
         qDebug() << "tabela estoque criada com sucesso";
@@ -70,8 +72,10 @@ void DatabaseManager::throwError(QSqlQuery *query)
 
 bool DatabaseManager::registerItem(QString id, QString nome, unsigned int categoria, long double preco, int quantidade)
 {
-    QMutexLocker lock(&estoqueMutex);
     qDebug() << "register Item";
+
+    QMutexLocker lock(&estoqueMutex);
+
     QSqlQuery registerItemQuery;
     registerItemQuery.prepare(REGISTER_ITEM_QUERY);
     registerItemQuery.bindValue(":id", id);
@@ -97,8 +101,10 @@ bool DatabaseManager::registerItem(QString id, QString nome, unsigned int catego
 
 QList<Item> DatabaseManager::getItens()
 {
-    QMutexLocker lock(&estoqueMutex);
     qDebug() << "get itens";
+
+    QMutexLocker lock(&estoqueMutex);
+
     QList<Item> itens;
     Item currentItem;
     QSqlQuery getItensQuery(this->m_database);
@@ -130,9 +136,11 @@ void DatabaseManager::addItem()
 int DatabaseManager::size()
 {
     QSqlQuery sizeQuery(this->m_database);
-    sizeQuery.prepare("SELECT COUNT() FROM estoque;");
+    sizeQuery.prepare(GET_SIZE_QUERY);
     if(sizeQuery.exec()) {
         return sizeQuery.next();
+    } else {
+        this->throwError(&sizeQuery);
     }
 
     return 0;
