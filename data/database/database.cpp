@@ -108,16 +108,14 @@ QList<Item> DatabaseManager::getItens()
     QList<Item> itens;
     Item currentItem;
     QSqlQuery getItensQuery(this->m_database);
+    QSqlRecord currentItemRecord;
+    ItemFactory itemFactory;
 
     getItensQuery.prepare(GET_ITENS_QUERY);
     if(getItensQuery.exec()) {
         while(getItensQuery.next()) {
-            QString id = getItensQuery.value("id").toString();
-            QString nome = getItensQuery.value("nome").toString();
-            unsigned int categoria = getItensQuery.value("categoria").toUInt();
-            long double preco = getItensQuery.value("preco").toLongLong();
-            unsigned int quantidade = getItensQuery.value("quantidade").toUInt();
-            currentItem = Item(id, nome, Categoria(categoria), preco, quantidade);
+            currentItemRecord = getItensQuery.record();
+            currentItem = itemFactory.createItem(&currentItemRecord);
 
             itens.push_back(currentItem);
         }

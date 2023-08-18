@@ -4,10 +4,12 @@
 #include <QtSql/QSqlDatabase>
 #include <QtSql/QSqlQuery>
 #include <QtSql/QSqlError>
+#include <QSqlRecord>
 #include <QDir>
 #include <QtConcurrent>
 
 #include "../../entity/item.h"
+#include "../../factory/itemfactory.h"
 
 class DatabaseManager : public QThread
 {
