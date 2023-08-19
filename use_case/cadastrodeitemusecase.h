@@ -17,6 +17,7 @@ public:
 
 signals:
     void success();
+    void fail(QString message);
 
 private:
     EstoqueRepository *estoqueRepository = nullptr;

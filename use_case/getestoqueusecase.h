@@ -18,6 +18,7 @@ public:
 
 signals:
     void success(QList<Item> itens);
+    void fail(QString message);
 
 private:
     EstoqueRepository *estoqueRepository = nullptr;

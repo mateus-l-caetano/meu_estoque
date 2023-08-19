@@ -18,7 +18,8 @@ public:
 signals:
     void successfullyRegisteredItem();
     void getItensSuccess(QList<Item> itens);
-    void error(QVariant response);
+    void errorRegisteringItem(QString errorMessage);
+    void errorGetingItens(QString errorMessage);
 
 public slots:
     void cadastrarItem(Item novoItem);
