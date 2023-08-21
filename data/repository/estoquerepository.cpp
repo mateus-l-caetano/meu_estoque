@@ -47,7 +47,7 @@ void EstoqueRepository::carregarItensPadrao()
 
 void EstoqueRepository::cadastrarItem(Item novoItem)
 {
-    qDebug() << "cadastro data source";
+    qDebug() << "cadastro repository";
 
     try {
         bool isSuccess = this->estoque->registerItem(
@@ -65,6 +65,21 @@ void EstoqueRepository::cadastrarItem(Item novoItem)
     }
 }
 
+void EstoqueRepository::setQuantidade(int novaQuantidade, QString IdDoItem)
+{
+    qDebug() << "set quantidade repository";
+
+    try {
+        bool isSuccess = this->estoque->setQuantidade(novaQuantidade, IdDoItem);
+        if(isSuccess) {
+            emit successInUpdatingItemVolume();
+        }
+    } catch (std::exception err) {
+        QString errorMessage = "erro ao alterar quantidade do item: " + QString::fromStdString(err.what());
+        emit errorWhenUpdatingItemVolume(errorMessage);
+    }
+}
+
 void EstoqueRepository::adicionarItem(int indiceDoItemASerAdicionado, unsigned int quantidadeDeItensASeremAdicionados)
 {
 
@@ -77,7 +92,7 @@ void EstoqueRepository::removerItem(QString idDoitemASerRemovido, unsigned int q
 
 void EstoqueRepository::getItens()
 {
-    qDebug() << "getItens data source";
+    qDebug() << "getItens repository";
 
     try {
         QList<Item> itens = this->estoque->getItens();

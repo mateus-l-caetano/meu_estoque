@@ -21,6 +21,7 @@ public:
     ~DatabaseManager();
     bool registerItem(QString id, QString nome, unsigned int categoria, long double preco, int quantidade);
     QList<Item> getItens();
+    bool setQuantidade(int novaQuantidade, QString IdDoItem);
     void addItem();
     int size();
 
@@ -47,6 +48,8 @@ private:
                                         "VALUES(:id, :nome, :categoria, :preco, :quantidade);";
 
     const QString GET_ITENS_QUERY = "SELECT * FROM estoque;";
+
+    const QString SET_QUANTIDADE_QUERY = "UPDATE estoque SET quantidade = :quantidade WHERE id = :id";
 
     const QString GET_SIZE_QUERY = "SELECT COUNT() FROM estoque;";
 

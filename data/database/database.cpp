@@ -126,6 +126,25 @@ QList<Item> DatabaseManager::getItens()
     return itens;
 }
 
+bool DatabaseManager::setQuantidade(int novaQuantidade, QString IdDoItem)
+{
+    qDebug() << "set quantidade";
+
+    QMutexLocker lock(&estoqueMutex);
+
+    QSqlQuery setQuantidadeQuery(this->m_database);
+    setQuantidadeQuery.prepare(SET_QUANTIDADE_QUERY);
+    setQuantidadeQuery.bindValue(":quantidade", novaQuantidade);
+    setQuantidadeQuery.bindValue(":id", IdDoItem);
+    if(!setQuantidadeQuery.exec()) {
+        throwError(&setQuantidadeQuery);
+    } else {
+        return true;
+    }
+
+    return false;
+}
+
 void DatabaseManager::addItem()
 {
 

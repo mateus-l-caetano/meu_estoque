@@ -13,7 +13,7 @@ void CadastroDeItemUseCase::execute(Item item)
 {
     qDebug() << "cadastra";
     connect(this->estoqueRepository, &EstoqueRepository::successfullyRegisteredItem, this, &CadastroDeItemUseCase::success);
-    connect(this->estoqueRepository, &EstoqueRepository::successfullyRegisteredItem, this, &CadastroDeItemUseCase::fail);
+    connect(this->estoqueRepository, &EstoqueRepository::errorRegisteringItem, this, &CadastroDeItemUseCase::fail);
     this->estoqueRepository->cadastrarItem(item);
     return;
 }

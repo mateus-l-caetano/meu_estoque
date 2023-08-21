@@ -13,6 +13,7 @@ qt_add_executable(appmeu_estoque
     use_case/getestoqueusecase.h use_case/getestoqueusecase.cpp
     use_case/cadastrodeitemusecase.h use_case/cadastrodeitemusecase.cpp
     use_case/listagemdeitensusecase.h use_case/listagemdeitensusecase.cpp
+    use_case/setitemvolumeusecase.h use_case/setitemvolumeusecase.cpp
     data/repository/estoquerepository.h data/repository/estoquerepository.cpp
     data/database/database.h data/database/database.cpp
     factory/itemfactory.h factory/itemfactory.cpp

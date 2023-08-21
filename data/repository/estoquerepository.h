@@ -18,11 +18,14 @@ public:
 signals:
     void successfullyRegisteredItem();
     void getItensSuccess(QList<Item> itens);
+    void successInUpdatingItemVolume();
     void errorRegisteringItem(QString errorMessage);
     void errorGetingItens(QString errorMessage);
+    void errorWhenUpdatingItemVolume(QString errorMessage);
 
 public slots:
     void cadastrarItem(Item novoItem);
+    void setQuantidade(int novaQuantidade, QString IdDoItem);
     void adicionarItem(int indiceDoItemASerAdicionado, unsigned int quantidadeDeItensASeremAdicionados = 1);
     void removerItem(QString idDoitemASerRemovido, unsigned int quantidadeDeItensASeremRemovidos = 1);
     void getItens();
