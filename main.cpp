@@ -30,8 +30,8 @@ int main(int argc, char *argv[])
 
 //    cadastroDeItemUseCase->execute(Item("nome", CATEGORIA1, 0.0, 10));
 
-    getEstoqueUseCase->execute();
-    setItemVolumeUseCase->execute(25, "{53eda1fd-8de4-440b-9243-fb9f87f46e17}");
+//    getEstoqueUseCase->execute();
+//    setItemVolumeUseCase->execute(25, "{53eda1fd-8de4-440b-9243-fb9f87f46e17}");
 
     QQmlApplicationEngine engine;
     const QUrl url(u"qrc:/meu_estoque/main.qml"_qs);

@@ -5,7 +5,7 @@ project(meu_estoque VERSION 0.1 LANGUAGES CXX)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(Qt6 COMPONENTS Core Quick Sql Concurrent REQUIRED)
+find_package(Qt6 COMPONENTS Core Quick Sql Concurrent Qml QuickControls2 REQUIRED)
 
 qt_add_executable(appmeu_estoque
     main.cpp
@@ -22,7 +22,7 @@ qt_add_executable(appmeu_estoque
 qt_add_qml_module(appmeu_estoque
     URI meu_estoque
     VERSION 1.0
-    QML_FILES main.qml 
+    QML_FILES main.qml qml/components/Card.qml
 )
 
 set_target_properties(appmeu_estoque PROPERTIES
@@ -41,4 +41,6 @@ target_link_libraries(appmeu_estoque
     Qt6::Quick
     Qt6::Sql
     Qt6::Concurrent
+    Qt6::Qml
+    Qt6::QuickControls2
 )
