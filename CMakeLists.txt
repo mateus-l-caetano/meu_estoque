@@ -25,6 +25,7 @@ qt_add_qml_module(appmeu_estoque
     QML_FILES
     main.qml
     qml/components/Card.qml
+    qml/components/ItemVolumeController.qml
 )
 
 set_target_properties(appmeu_estoque PROPERTIES

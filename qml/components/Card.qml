@@ -17,34 +17,4 @@ Pane {
             elevation: 1
         }
     }
-
-    contentChildren: ColumnLayout {
-        anchors.fill: parent
-        RowLayout {
-            id: cardRow
-
-            Text {
-                id: itemName
-                text: qsTr("nome do item")
-                Layout.fillWidth: true
-                verticalAlignment: Qt.AlignVCenter
-            }
-
-            Row {
-                Layout.alignment: Qt.AlignRight
-                spacing: 8
-                RoundButton {
-                    text: "-"
-                }
-                TextInput {
-                    text: "56"
-                    anchors.verticalCenter: parent.verticalCenter
-                }
-                RoundButton {
-                    text: "+"
-                }
-            }
-        }
-    }
-
 }

@@ -15,6 +15,6 @@ Window {
         anchors.bottomMargin: 10
         spacing: 10
         model: 10
-        delegate: Card{  }
+        delegate: Card{ contentChildren: ItemVolumeController {} }
     }
 }
