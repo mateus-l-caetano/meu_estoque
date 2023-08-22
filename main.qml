@@ -1,5 +1,7 @@
 import QtQuick
 
+import "qml/components/"
+
 Window {
     width: 640
     height: 480

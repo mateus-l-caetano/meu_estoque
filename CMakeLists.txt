@@ -22,7 +22,9 @@ qt_add_executable(appmeu_estoque
 qt_add_qml_module(appmeu_estoque
     URI meu_estoque
     VERSION 1.0
-    QML_FILES main.qml qml/components/Card.qml
+    QML_FILES
+    main.qml
+    qml/components/Card.qml
 )
 
 set_target_properties(appmeu_estoque PROPERTIES
