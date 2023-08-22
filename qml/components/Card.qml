@@ -6,15 +6,16 @@ import QtQuick.Controls.Material.impl 2.12
 
 Pane {
     id: cardRoot
-    width: parent.width * 0.8
-    anchors.horizontalCenter: parent.horizontalCenter
+
+    property int elevation: 1
+    property int borderRadius: 10
 
     background: Rectangle {
-        radius: 10
+        radius: cardRoot.elevation
 
         layer.enabled: true
         layer.effect: ElevationEffect {
-            elevation: 1
+            elevation: cardRoot.elevation
         }
     }
 }
