@@ -14,7 +14,8 @@ void GetEstoqueUseCase::execute()
     qDebug() << "get estoque";
     connect(this->estoqueRepository, &EstoqueRepository::getItensSuccess, this, &GetEstoqueUseCase::success);
     connect(this->estoqueRepository, &EstoqueRepository::errorGetingItens, this, &GetEstoqueUseCase::fail);
-    connect(this->estoqueRepository, &EstoqueRepository::getItensSuccess, this, &GetEstoqueUseCase::printEstoque);
+    connect(this->estoqueRepository, &EstoqueRepository::dataSetChanged, this->estoqueRepository, &EstoqueRepository::getItens);
+//    connect(this->estoqueRepository, &EstoqueRepository::getItensSuccess, this, &GetEstoqueUseCase::printEstoque);
     this->estoqueRepository->getItens();
 }
 

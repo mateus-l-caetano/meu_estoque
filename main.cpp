@@ -6,6 +6,7 @@
 #include "./use_case/setitemvolumeusecase.h"
 #include "./data/repository/estoquerepository.h"
 #include "./data/database/database.h"
+#include "./model/estoquemodel.h"
 
 int main(int argc, char *argv[])
 {
@@ -20,20 +21,11 @@ int main(int argc, char *argv[])
     std::unique_ptr<GetEstoqueUseCase> getEstoqueUseCase(new GetEstoqueUseCase(estoqueRepository));
     std::unique_ptr<SetItemVolumeUseCase> setItemVolumeUseCase(new SetItemVolumeUseCase(estoqueRepository));
 
-    QObject::connect(cadastroDeItemUseCase.get(), &CadastroDeItemUseCase::success, [](){
-        qDebug() << "cadastro realizado com sucesso";
-    });
-
-    QObject::connect(setItemVolumeUseCase.get(), &SetItemVolumeUseCase::successInUpdatingItemVolume, [](){
-        qDebug() << "atualizado com sucesso";
-    });
-
-//    cadastroDeItemUseCase->execute(Item("nome", CATEGORIA1, 0.0, 10));
-
-//    getEstoqueUseCase->execute();
-//    setItemVolumeUseCase->execute(25, "{53eda1fd-8de4-440b-9243-fb9f87f46e17}");
+    std::unique_ptr<EstoqueModel> estoqueModel(new EstoqueModel(getEstoqueUseCase.get()));
 
     QQmlApplicationEngine engine;
+    engine.setInitialProperties({{"estoqueModel", QVariant::fromValue(estoqueModel.get())}});
+
     const QUrl url(u"qrc:/meu_estoque/main.qml"_qs);
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
                      &app, [url](QObject *obj, const QUrl &objUrl) {

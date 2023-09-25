@@ -5,13 +5,14 @@ import QtQuick.Controls.Material 2.12
 import QtQuick.Controls.Material.impl 2.12
 
 ColumnLayout {
+    property string itemName: ""
+
     anchors.fill: parent
     RowLayout {
         id: cardRow
 
         Text {
-            id: itemName
-            text: qsTr("nome do item")
+            text: itemName
             Layout.fillWidth: true
             verticalAlignment: Qt.AlignVCenter
         }

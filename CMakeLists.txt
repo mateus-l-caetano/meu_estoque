@@ -17,6 +17,7 @@ qt_add_executable(appmeu_estoque
     data/repository/estoquerepository.h data/repository/estoquerepository.cpp
     data/database/database.h data/database/database.cpp
     factory/itemfactory.h factory/itemfactory.cpp
+    model/estoquemodel.h model/estoquemodel.cpp
 )
 
 qt_add_qml_module(appmeu_estoque
@@ -26,6 +27,7 @@ qt_add_qml_module(appmeu_estoque
     main.qml
     qml/components/Card.qml
     qml/components/ItemVolumeController.qml
+    SOURCES model/estoquemodel.h model/estoquemodel.cpp
 )
 
 set_target_properties(appmeu_estoque PROPERTIES

@@ -7,6 +7,9 @@ import QtQuick.Controls.Material.impl 2.3
 import "qml/components/"
 
 ApplicationWindow {
+    required property var estoqueModel
+
+    id: root
     width: 640
     height: 480
     visible: true
@@ -88,15 +91,20 @@ ApplicationWindow {
         anchors.fill: parent
         initialItem: ListView {
             id: itensListView
+
             anchors.fill: parent
             anchors.topMargin: 10
             anchors.bottomMargin: 10
             spacing: 10
-            model: 10
+            model: estoqueModel
             delegate: Card {
+                required property string nome
+
                 width: parent.width * 0.8
-                anchors.horizontalCenter: parent.horizontalCenter
-                contentChildren: ItemVolumeController {}
+                anchors.horizontalCenter: root.horizontalCenter
+                contentChildren: ItemVolumeController {
+                    itemName: nome
+                }
             }
         }
     }

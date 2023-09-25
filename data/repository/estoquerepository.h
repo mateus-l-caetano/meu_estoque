@@ -16,6 +16,7 @@ public:
     EstoqueRepository(DatabaseManager *estoque);
 
 signals:
+    void dataSetChanged();
     void successfullyRegisteredItem();
     void getItensSuccess(QList<Item> itens);
     void successInUpdatingItemVolume();

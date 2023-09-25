@@ -58,6 +58,7 @@ void EstoqueRepository::cadastrarItem(Item novoItem)
                     novoItem.getQuantidade());
         if(isSuccess) {
             emit successfullyRegisteredItem();
+            emit dataSetChanged();
         }
     } catch (std::exception err) {
         QString errorMessage = "erro ao cadastrar item: " + QString::fromStdString(err.what());
@@ -73,6 +74,7 @@ void EstoqueRepository::setQuantidade(int novaQuantidade, QString IdDoItem)
         bool isSuccess = this->estoque->setQuantidade(novaQuantidade, IdDoItem);
         if(isSuccess) {
             emit successInUpdatingItemVolume();
+            emit dataSetChanged();
         }
     } catch (std::exception err) {
         QString errorMessage = "erro ao alterar quantidade do item: " + QString::fromStdString(err.what());
