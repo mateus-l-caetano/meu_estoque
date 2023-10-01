@@ -27,6 +27,8 @@ qt_add_qml_module(appmeu_estoque
     main.qml
     qml/components/Card.qml
     qml/components/ItemVolumeController.qml
+    qml/screens/HomeScreen.qml
+    qml/screens/AddItemScreen.qml
     SOURCES model/estoquemodel.h model/estoquemodel.cpp
 )
 

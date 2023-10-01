@@ -5,6 +5,7 @@ import QtQuick.Controls.Material 2.3
 import QtQuick.Controls.Material.impl 2.3
 
 import "qml/components/"
+import "qml/screens/"
 
 ApplicationWindow {
     required property var estoqueModel
@@ -89,23 +90,9 @@ ApplicationWindow {
     StackView {
         id: stack
         anchors.fill: parent
-        initialItem: ListView {
-            id: itensListView
-
+        initialItem: HomeScreen {
+            id: container
             anchors.fill: parent
-            anchors.topMargin: 10
-            anchors.bottomMargin: 10
-            spacing: 10
-            model: estoqueModel
-            delegate: Card {
-                required property string nome
-
-                width: parent.width * 0.8
-                anchors.horizontalCenter: root.horizontalCenter
-                contentChildren: ItemVolumeController {
-                    itemName: nome
-                }
-            }
         }
     }
 
