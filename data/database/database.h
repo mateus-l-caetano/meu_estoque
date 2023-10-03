@@ -8,6 +8,7 @@
 #include <QDir>
 #include <QtConcurrent>
 
+#include "../databaseconnection.h"
 #include "../../entity/item.h"
 #include "../mapper/itemmapper.h"
 
@@ -26,13 +27,15 @@ public:
     int size();
 
 private:
-    DatabaseManager();
-    void openDatabase();
+    DatabaseManager(DatabaseConnection *databaseConnection);
+
     void createEstoqueTable();
     void throwError(QSqlQuery *query);
 
-    QSqlDatabase m_database;
     static DatabaseManager *m_databaseManager;
+
+    DatabaseConnection *m_databaseConnetion = nullptr;
+    QSqlDatabase *m_database;
 
     QMutex estoqueMutex;
 

@@ -2,32 +2,18 @@
 
 DatabaseManager *DatabaseManager::m_databaseManager = nullptr;
 
-DatabaseManager::DatabaseManager() : QThread()
+DatabaseManager::DatabaseManager(DatabaseConnection *databaseConnection) : QThread(), m_databaseConnetion(databaseConnection)
 {
-    this->openDatabase();
-}
+    try {
+        this->m_databaseConnetion->openDatabaseConnection();
 
-void DatabaseManager::openDatabase()
-{
-    qDebug() << "open database";
+        this->m_database = m_databaseConnetion->database();
 
-    QDir databasePath;
-    QString path = databasePath.currentPath()+"/meu_estoque.db";
-    qDebug() << "path do banco de dados" << path;
-
-    this->m_database = QSqlDatabase::addDatabase("QSQLITE");
-    this->m_database.setDatabaseName(path);
-
-    if(!this->m_database.open()) {
-        std::string databaseErrorMessage = this->m_database.lastError().text().toStdString();
-        std::string errorMessage = "não foi possível acessar o banco de dados: " + databaseErrorMessage;
-
-        throw std::runtime_error(errorMessage);
-    } else if(!this->m_database.tables().contains("estoque")) {
-        qDebug() << "banco aberto com sucesso";
-        this->createEstoqueTable();
-    } else {
-        qDebug() << "banco pronto para uso";
+        if(!this->m_database->tables().contains("estoque")) {
+            this->createEstoqueTable();
+        }
+    } catch (std::runtime_error error) {
+        qDebug() << error.what();
     }
 }
 
@@ -35,7 +21,7 @@ void DatabaseManager::createEstoqueTable()
 {
     qDebug() << "create database";
 
-    QSqlQuery createEstoqueTableQuery(m_database);
+    QSqlQuery createEstoqueTableQuery(*this->m_database);
     createEstoqueTableQuery.prepare(CREATE_ESTOQUE_TABLE_QUERY);
 
     if(createEstoqueTableQuery.exec()) {
@@ -53,7 +39,7 @@ void DatabaseManager::run()
 DatabaseManager *DatabaseManager::getInstance()
 {
     if(m_databaseManager == nullptr) {
-        m_databaseManager = new DatabaseManager();
+        m_databaseManager = new DatabaseManager(DatabaseConnection::getInstance());
     }
 
     return m_databaseManager;
@@ -61,7 +47,7 @@ DatabaseManager *DatabaseManager::getInstance()
 
 DatabaseManager::~DatabaseManager()
 {
-    this->m_database.close();
+    this->m_databaseConnetion->closeDatabaseConnection();
 }
 
 void DatabaseManager::throwError(QSqlQuery *query)
@@ -84,7 +70,7 @@ bool DatabaseManager::registerItem(QString id, QString nome, unsigned int catego
     registerItemQuery.bindValue(":preco", QVariant::fromValue(preco));
     registerItemQuery.bindValue(":quantidade", quantidade);
 
-    if(this->m_database.isOpen()){
+    if(this->m_database->isOpen()){
         if(registerItemQuery.exec()) {
             qDebug() << "item cadastrado com sucesso";
             return true;
@@ -107,7 +93,7 @@ QList<Item> DatabaseManager::getItens()
 
     QList<Item> itens;
     Item currentItem;
-    QSqlQuery getItensQuery(this->m_database);
+    QSqlQuery getItensQuery(*this->m_database);
     QSqlRecord currentItemRecord;
     ItemMapper itemMapper;
 
@@ -132,7 +118,7 @@ bool DatabaseManager::setQuantidade(int novaQuantidade, QString IdDoItem)
 
     QMutexLocker lock(&estoqueMutex);
 
-    QSqlQuery setQuantidadeQuery(this->m_database);
+    QSqlQuery setQuantidadeQuery(*this->m_database);
     setQuantidadeQuery.prepare(SET_QUANTIDADE_QUERY);
     setQuantidadeQuery.bindValue(":quantidade", novaQuantidade);
     setQuantidadeQuery.bindValue(":id", IdDoItem);
@@ -152,7 +138,7 @@ void DatabaseManager::addItem()
 
 int DatabaseManager::size()
 {
-    QSqlQuery sizeQuery(this->m_database);
+    QSqlQuery sizeQuery(*this->m_database);
     sizeQuery.prepare(GET_SIZE_QUERY);
     if(sizeQuery.exec()) {
         return sizeQuery.next();
