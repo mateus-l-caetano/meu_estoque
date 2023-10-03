@@ -8,7 +8,7 @@
 #include <QDir>
 #include <QtConcurrent>
 
-#include "../databaseconnection.h"
+#include "./databaseconnection.h"
 #include "../../entity/item.h"
 #include "../mapper/itemmapper.h"
 
