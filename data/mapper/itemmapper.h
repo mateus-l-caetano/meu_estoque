@@ -4,13 +4,13 @@
 #include <QSqlRecord>
 #include <QVariant>
 
-#include "../entity/item.h"
+#include "../../entity/item.h"
 
-class ItemFactory
+class ItemMapper
 {
 public:
-    ItemFactory();
-    Item createItem(QSqlRecord *itemRecord);
+    ItemMapper();
+    Item toItem(QSqlRecord *itemRecord);
 };
 
 #endif // ITEMFACTORY_H

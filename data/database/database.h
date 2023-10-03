@@ -9,7 +9,7 @@
 #include <QtConcurrent>
 
 #include "../../entity/item.h"
-#include "../../factory/itemfactory.h"
+#include "../mapper/itemmapper.h"
 
 class DatabaseManager : public QThread
 {

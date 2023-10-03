@@ -1,11 +1,11 @@
-#include "itemfactory.h"
+#include "itemmapper.h"
 
-ItemFactory::ItemFactory()
+ItemMapper::ItemMapper()
 {
 
 }
 
-Item ItemFactory::createItem(QSqlRecord *itemRecord)
+Item ItemMapper::toItem(QSqlRecord *itemRecord)
 {
     QString id = itemRecord->value("id").toString();
     QString nome = itemRecord->value("nome").toString();

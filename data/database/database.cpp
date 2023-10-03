@@ -109,13 +109,13 @@ QList<Item> DatabaseManager::getItens()
     Item currentItem;
     QSqlQuery getItensQuery(this->m_database);
     QSqlRecord currentItemRecord;
-    ItemFactory itemFactory;
+    ItemMapper itemMapper;
 
     getItensQuery.prepare(GET_ITENS_QUERY);
     if(getItensQuery.exec()) {
         while(getItensQuery.next()) {
             currentItemRecord = getItensQuery.record();
-            currentItem = itemFactory.createItem(&currentItemRecord);
+            currentItem = itemMapper.toItem(&currentItemRecord);
 
             itens.push_back(currentItem);
         }
